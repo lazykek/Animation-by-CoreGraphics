@@ -8,9 +8,10 @@
 import UIKit
 
 class SecondAnimationView: UICustomAnimationView {
-
+    
     let pi = CGFloat.pi
     var radius: CGFloat = 60
+    var oldRadius: CGFloat = 60
     var isTouched = false
     var currentPoint: CGPoint?
     
@@ -40,53 +41,42 @@ class SecondAnimationView: UICustomAnimationView {
         let cos = vector1.vectorLength() / radius
         let sin = CGFloat(Double(1.0 - cos * cos).squareRoot())
         let tan = sin / cos
-        let specialMultiplier: CGFloat = 1 + cos
+        let specialMultiplier: CGFloat = 1 + vector1.vectorLength() / radius / 10
         let vector3 = multiplyingAVectorByANumber(vector: vector2, number: tan * specialMultiplier)
-        
         let crossPoint = endVectorPoint(vector: vector3, starPoint: viewCenterPoint!)
-        let circle3 = Circle(centerPoint: crossPoint, radius: 5)
-        circle3.drawCircle(context: context)
+//        let circle3 = Circle(centerPoint: crossPoint, radius: 5)
+//        circle3.drawCircle(context: context)
+
         
-        var array1 = tangentsPointOfTouch(circle: circle1, point: crossPoint)
-        print(array1?.count)
-        if array1 != nil {
-            for i in 0..<(array1?.count)! {
+        let point1 = specialTangentPoint(tangentialCircle: circle1, overlappedCircle: circle2, point: crossPoint)
+        let point2 = specialTangentPoint(tangentialCircle: circle2, overlappedCircle: circle1, point: crossPoint)
+        
+        if (point1 != nil) && (point2 != nil) {
+            context.move(to: point1!)
+            context.addQuadCurve(to: point2!, controlPoint: crossPoint)
+            context.addLine(to: mirrorPoint(point1!))
+            context.addQuadCurve(to: mirrorPoint(point2!), controlPoint: mirrorPoint(crossPoint))
+            context.addLine(to: point1!)
+            context.fill()
+            context.close()
+        }
+        
+    }
+    
+    func specialTangentPoint(tangentialCircle: Circle, overlappedCircle: Circle, point: CGPoint) -> CGPoint? {
+        var array = tangentsPointOfTouch(circle: tangentialCircle, point: point)
+        if array != nil {
+            for i in 0..<(array?.count)! {
                 print(i)
-                if belongToCircle((array1?[i])!, circle: circle2) {
-                    array1?.remove(at: i)
-                    print("remove")
-                    let circle = Circle(centerPoint: (array1?[0])!, radius: 5)
-                    circle.drawCircle(context: context)
+                if belongToCircle((array?[i])!, circle: overlappedCircle) {
+                    array?.remove(at: i)
                     break
                 }
             }
+            return array?[0]
+        } else {
+            return nil
         }
-        print(array1?.count)
-        
-        var array2 = tangentsPointOfTouch(circle: circle2, point: crossPoint)
-        print(array2?.count)
-        if array2 != nil {
-            for i in 0..<(array2?.count)! {
-                print(i)
-                if belongToCircle((array2?[i])!, circle: circle1) {
-                    array2?.remove(at: i)
-                    print("remove")
-                    let circle = Circle(centerPoint: (array2?[0])!, radius: 5)
-                    circle.drawCircle(context: context)
-                    break
-                }
-            }
-        }
-        print(array2?.count)
-        
-        context.move(to: (array1?[0])!)
-        context.addQuadCurve(to: (array2?[0])!, controlPoint: crossPoint)
-        context.addLine(to: mirrorPoint((array1?[0])!))
-        context.addQuadCurve(to: mirrorPoint((array2?[0])!), controlPoint: mirrorPoint(crossPoint))
-        context.addLine(to: (array1?[0])!)
-        context.fill()
-        context.close()
-        
     }
     
     func isTouched(_ point: CGPoint) -> Bool {
@@ -112,6 +102,7 @@ class SecondAnimationView: UICustomAnimationView {
             if isTouched == true {
                 print(touch.location(in: self))
                 currentPoint = touch.location(in: self)
+                radius = oldRadius - CGFloat(distanceBetweenTwoPoints(currentPoint!, viewCenterPoint!)) / 2.5
                 setNeedsDisplay()
             }
         }

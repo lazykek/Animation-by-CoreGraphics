@@ -69,7 +69,7 @@ class UICustomAnimationView: UIView {
         return arrayOfPoint
     }
     
-    func isTouchedInCircle(_ point: CGPoint, circle: Circle) -> Bool {
+    func belongToCircle(_ point: CGPoint, circle: Circle) -> Bool {
         
         if (distanceBetweenTwoPoints(circle.centerPoint, point) <= Double(circle.radius)) == true {
             return true

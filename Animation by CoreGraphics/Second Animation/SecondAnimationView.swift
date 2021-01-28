@@ -45,19 +45,18 @@ class SecondAnimationView: UICustomAnimationView {
         
         let crossPoint = endVectorPoint(vector: vector3, starPoint: viewCenterPoint!)
         let circle3 = Circle(centerPoint: crossPoint, radius: 5)
-        //circle3.drawCircle(context: context)
+        circle3.drawCircle(context: context)
         
-        //let centerCircle = Circle(centerPoint: viewCenterPoint!, radius: 2)
         var array1 = tangentsPointOfTouch(circle: circle1, point: crossPoint)
         print(array1?.count)
         if array1 != nil {
             for i in 0..<(array1?.count)! {
                 print(i)
-                if isTouchedInCircle((array1?[i])!, circle: circle1) || isTouchedInCircle((array1?[i])!, circle: circle2) {
+                if belongToCircle((array1?[i])!, circle: circle2) {
                     array1?.remove(at: i)
                     print("remove")
                     let circle = Circle(centerPoint: (array1?[0])!, radius: 5)
-                    //circle.drawCircle(context: context)
+                    circle.drawCircle(context: context)
                     break
                 }
             }
@@ -69,11 +68,11 @@ class SecondAnimationView: UICustomAnimationView {
         if array2 != nil {
             for i in 0..<(array2?.count)! {
                 print(i)
-                if isTouchedInCircle((array2?[i])!, circle: circle1) || isTouchedInCircle((array2?[i])!, circle: circle2) {
+                if belongToCircle((array2?[i])!, circle: circle1) {
                     array2?.remove(at: i)
                     print("remove")
                     let circle = Circle(centerPoint: (array2?[0])!, radius: 5)
-                    //circle.drawCircle(context: context)
+                    circle.drawCircle(context: context)
                     break
                 }
             }

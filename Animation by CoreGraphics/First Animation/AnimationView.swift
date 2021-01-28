@@ -51,11 +51,6 @@ class AnimationView: UIView {
         context.addArc(withCenter: mirrorPoint(point), radius: radius, startAngle: 0, endAngle: 2 * pi, clockwise: true)
         context.fill()
         context.close()
-        
-        //point of Touch
-        
-        //draw Curve
-        
     }
     
     func mirrorPoint(_ point: CGPoint) -> CGPoint {

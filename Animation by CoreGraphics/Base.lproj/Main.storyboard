@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hfh-Tr-yrs">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -37,6 +37,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="118.52678571428571"/>
+        </scene>
+        <!--Second View Controller-->
+        <scene sceneID="wC4-7h-adB">
+            <objects>
+                <viewController id="hfh-Tr-yrs" customClass="SecondViewController" customModule="Animation_by_CoreGraphics" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gYd-oe-RpG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hDc-u8-sZt" customClass="SecondAnimationView" customModule="Animation_by_CoreGraphics" customModuleProvider="target">
+                                <rect key="frame" x="20" y="44" width="374" height="818"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ypZ-9h-uSZ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hDc-u8-sZt" firstAttribute="bottom" secondItem="ypZ-9h-uSZ" secondAttribute="bottom" id="PJh-hZ-D3G"/>
+                            <constraint firstItem="hDc-u8-sZt" firstAttribute="leading" secondItem="ypZ-9h-uSZ" secondAttribute="leading" constant="20" id="S9H-34-eg4"/>
+                            <constraint firstItem="ypZ-9h-uSZ" firstAttribute="trailing" secondItem="hDc-u8-sZt" secondAttribute="trailing" constant="20" id="hPw-xX-mrN"/>
+                            <constraint firstItem="hDc-u8-sZt" firstAttribute="top" secondItem="ypZ-9h-uSZ" secondAttribute="top" id="l1b-tb-mzu"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vts-UD-Dxm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1039.1304347826087" y="118.52678571428571"/>
         </scene>
     </scenes>
     <resources>

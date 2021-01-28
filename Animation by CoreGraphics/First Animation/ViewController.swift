@@ -9,8 +9,6 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var isTouched = false
-    
     @IBOutlet weak var animationView: AnimationView!
     
     override func viewDidLoad() {

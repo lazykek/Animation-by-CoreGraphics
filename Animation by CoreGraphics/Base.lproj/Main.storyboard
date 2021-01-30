@@ -60,6 +60,9 @@
                             <constraint firstItem="hDc-u8-sZt" firstAttribute="top" secondItem="ypZ-9h-uSZ" secondAttribute="top" id="l1b-tb-mzu"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="animationView" destination="hDc-u8-sZt" id="BA1-QZ-sim"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vts-UD-Dxm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

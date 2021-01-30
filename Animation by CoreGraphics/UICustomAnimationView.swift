@@ -40,6 +40,7 @@ class UICustomAnimationView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         viewCenterPoint = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
+        print(self.frame)
         print(#function)
     }
     
@@ -50,28 +51,31 @@ class UICustomAnimationView: UIView {
         let b = point.x
         let c = circle.centerPoint.y
         let d = point.y
-        
-        let A = circle.radius * circle.radius + a * b + c * d - a * a - c * c
-        let B = A / (b-a)
-        let C = (c - d) / (b - a)
-        let D = B - a
-        let E = C * C + 1
-        let F = c - C * D
-        let G = D * D + c * c - circle.radius * circle.radius
-        let discriminant = F * F - E * G
-        
-        var y = (F + pow(discriminant, 0.5)) / E
-        var x = B + C * y
-        arrayOfPoint.append(CGPoint(x: x, y: y))
-        y = (F - pow(discriminant, 0.5)) / E
-        x = B + C * y
-        arrayOfPoint.append(CGPoint(x: x, y: y))
-        return arrayOfPoint
+        if abs(b - a) > 0.01 {
+            let A = circle.radius * circle.radius + a * b + c * d - a * a - c * c
+            let B = A / (b - a)
+            let C = (c - d) / (b - a)
+            let D = B - a
+            let E = C * C + 1
+            let F = c - C * D
+            let G = D * D + c * c - circle.radius * circle.radius
+            let discriminant = F * F - E * G
+            var y = (F + pow(discriminant, 0.5)) / E
+            var x = B + C * y
+            arrayOfPoint.append(CGPoint(x: x, y: y))
+            y = (F - pow(discriminant, 0.5)) / E
+            x = B + C * y
+            arrayOfPoint.append(CGPoint(x: x, y: y))
+            return arrayOfPoint
+        } else {
+            print("tangentsPointOfTouch with error")
+            return [point, point]
+        }
     }
     
     func belongToCircle(_ point: CGPoint, circle: Circle) -> Bool {
         
-        if (distanceBetweenTwoPoints(circle.centerPoint, point) <= Double(circle.radius)) == true {
+        if (distanceBetweenTwoPoints(circle.centerPoint, point) <= circle.radius) == true {
             return true
         } else {
             return false
@@ -89,12 +93,12 @@ class UICustomAnimationView: UIView {
         return CGPoint(x: mirrorX, y: mirrorY)
     }
     
-    func distanceBetweenTwoPoints(_ point1: CGPoint, _ point2: CGPoint) -> Double {
+    func distanceBetweenTwoPoints(_ point1: CGPoint, _ point2: CGPoint) -> CGFloat {
         
         let deltaX = Double(point1.x - point2.x)
         let deltaY = Double(point1.y - point2.y)
         let distance = deltaX * deltaX + deltaY * deltaY
-        return pow(distance, 0.5)
+        return CGFloat(pow(distance, 0.5))
     }
     
     func endVectorPoint(vector: Vector, starPoint: CGPoint) -> CGPoint {

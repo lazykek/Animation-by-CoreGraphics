@@ -9,9 +9,11 @@ import UIKit
 
 class SecondViewController: UIViewController {
 
+    @IBOutlet weak var animationView: SecondAnimationView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        animationView.startAnimation()
         // Do any additional setup after loading the view.
     }
 

@@ -130,7 +130,6 @@ class AnimationView: UIView {
         if let touch = touches.first {
             if isTouched == true {
                 print(touch.location(in: self))
-                //radius = 40 - CGFloat(0.3 * distanceBetweenTwoPoints(centerPoint!, touch.location(in: self)))
                 currentPoint! = touch.location(in: self)
                 setNeedsDisplay()
             }

@@ -9,47 +9,29 @@ import UIKit
 
 class UICustomAnimationView: UIView {
     
-    var viewCenterPoint: CGPoint?
+    var viewCenter: CGPoint?
+    
     struct Circle {
         
         private let pi = CGFloat.pi
-        var centerPoint: CGPoint
+        var center: CGPoint
         var radius: CGFloat
-        
-        init(centerPoint: CGPoint, radius: CGFloat) {
-            
-            self.centerPoint = centerPoint
-            self.radius = radius
-        }
         
         func drawCircle(context: UIBezierPath) {
             
-            context.move(to: centerPoint)
-            context.addArc(withCenter: centerPoint, radius: radius, startAngle: 0, endAngle: 2 * pi, clockwise: true)
+            context.move(to: center)
+            context.addArc(withCenter: center, radius: radius, startAngle: 0, endAngle: 2 * pi, clockwise: true)
             context.fill()
             context.close()
         }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        viewCenterPoint = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
-        print(#function)
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        viewCenterPoint = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
-        print(self.frame)
-        print(#function)
-    }
-    
     func tangentsPointOfTouch(circle: Circle, point: CGPoint) -> [CGPoint]? {
         
         var arrayOfPoint: [CGPoint] = []
-        let a = circle.centerPoint.x
+        let a = circle.center.x
         let b = point.x
-        let c = circle.centerPoint.y
+        let c = circle.center.y
         let d = point.y
         if abs(b - a) > 0.01 {
             let A = circle.radius * circle.radius + a * b + c * d - a * a - c * c
@@ -75,7 +57,7 @@ class UICustomAnimationView: UIView {
     
     func belongToCircle(_ point: CGPoint, circle: Circle) -> Bool {
         
-        if (distanceBetweenTwoPoints(circle.centerPoint, point) <= circle.radius) == true {
+        if (distanceBetweenTwoPoints(circle.center, point) <= circle.radius) == true {
             return true
         } else {
             return false
@@ -86,7 +68,7 @@ class UICustomAnimationView: UIView {
         
         var point = reflectionCenter
         if point == nil {
-            point = self.viewCenterPoint
+            point = self.viewCenter
         }
         let mirrorX = 2 * point!.x - reflectedPoint.x
         let mirrorY = 2 * point!.y - reflectedPoint.y

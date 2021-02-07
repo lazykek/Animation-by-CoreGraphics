@@ -8,13 +8,23 @@
 import UIKit
 
 class SecondViewController: UIViewController {
-
-    @IBOutlet weak var animationView: SecondAnimationView!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+
+        let animationView = SecondAnimationView()
+        view.addSubview(animationView)
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+        animationView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        animationView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        animationView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        animationView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        animationView.sizeToFit()
+        animationView.layoutIfNeeded()
+        animationView.backgroundColor = .clear
+
         animationView.startAnimation()
-        // Do any additional setup after loading the view.
     }
 
 }
